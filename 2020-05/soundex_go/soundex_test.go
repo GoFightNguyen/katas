@@ -117,5 +117,20 @@ func TestRemoveAllZeroDigits(t *testing.T) {
 }
 
 func TestRightPadUntilThreeDigits(t *testing.T) {
+	scenarios := []struct {
+		input  string
+		expect string
+	}{
+		{input: "1", expect: "100"},
+		{input: "12", expect: "120"},
+		{input: "123", expect: "123"},
+	}
 
+	for _, s := range scenarios {
+		result := rightPadUntilThreeDigits(s.input)
+		expect := s.expect
+		if result != expect {
+			t.Errorf("Expected: %q\nActual: %q", expect, result)
+		}
+	}
 }

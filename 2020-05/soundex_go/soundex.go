@@ -9,6 +9,7 @@ func Encode(name string) string {
 	name = encodeConsonants(name)
 	name = replaceRepeatingAdjacentDigits(name)
 	name = removeAllZeroDigits(name)
+	name = rightPadUntilThreeDigits(name)
 	return firstLetter + name
 }
 
@@ -96,4 +97,12 @@ func replaceRepeatingAdjacentDigits(name string) string {
 
 func removeAllZeroDigits(name string) string {
 	return strings.ReplaceAll(name, "0", "")
+}
+
+func rightPadUntilThreeDigits(name string) string {
+	for len(name) < 3 {
+		name += "0"
+	}
+
+	return name
 }
