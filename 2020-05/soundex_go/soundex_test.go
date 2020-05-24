@@ -10,6 +10,9 @@ func TestRobertIsEncodedAsR163(t *testing.T) {
 		{input: "Robert", expect: "R163"},
 		{input: "Rupert", expect: "R163"},
 		{input: "Rubin", expect: "R150"},
+		{input: "Ashcraft", expect: "A261"},
+		{input: "Ashcroft", expect: "A261"},
+		{input: "Tymczak", expect: "T520"},
 	}
 
 	for _, s := range scenarios {
@@ -128,6 +131,26 @@ func TestRightPadUntilThreeDigits(t *testing.T) {
 
 	for _, s := range scenarios {
 		result := rightPadUntilThreeDigits(s.input)
+		expect := s.expect
+		if result != expect {
+			t.Errorf("Expected: %q\nActual: %q", expect, result)
+		}
+	}
+}
+
+func TestTrimToThreeDigits(t *testing.T) {
+	scenarios := []struct {
+		input  string
+		expect string
+	}{
+		{input: "1", expect: "1"},
+		{input: "12", expect: "12"},
+		{input: "123", expect: "123"},
+		{input: "1234", expect: "123"},
+	}
+
+	for _, s := range scenarios {
+		result := trimToThreeDigits(s.input)
 		expect := s.expect
 		if result != expect {
 			t.Errorf("Expected: %q\nActual: %q", expect, result)

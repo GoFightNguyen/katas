@@ -10,6 +10,7 @@ func Encode(name string) string {
 	name = replaceRepeatingAdjacentDigits(name)
 	name = removeAllZeroDigits(name)
 	name = rightPadUntilThreeDigits(name)
+	name = trimToThreeDigits(name)
 	return firstLetter + name
 }
 
@@ -105,4 +106,12 @@ func rightPadUntilThreeDigits(name string) string {
 	}
 
 	return name
+}
+
+func trimToThreeDigits(name string) string {
+	if len(name) >= 3 {
+		return name[0:3]
+	}
+
+	return name[0:]
 }
