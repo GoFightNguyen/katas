@@ -18,6 +18,14 @@ func TestRupertReturnsR163(t *testing.T) {
 	}
 }
 
+func TestRubinReturnsR150(t *testing.T) {
+	actual := Index("Rubin")
+	expect := "R150"
+	if actual != expect {
+		t.Errorf("Expected: %v, Actual: %v", expect, actual)
+	}
+}
+
 func TestGetTheFirstLetter(t *testing.T) {
 	scenarios := []struct {
 		input  string
@@ -65,6 +73,26 @@ func TestRemoveVowelLikeLetters(t *testing.T) {
 
 	for _, s := range scenarios {
 		actual := removeVowelLikeLetters(s.input)
+		expect := s.expect
+		if actual != expect {
+			t.Errorf("Expected: %v, Actual: %v", expect, actual)
+		}
+	}
+}
+
+func TestRightPadToThreeDigits(t *testing.T) {
+	scenarios := []struct {
+		input  string
+		expect string
+	}{
+		{input: "1", expect: "100"},
+		{input: "12", expect: "120"},
+		{input: "123", expect: "123"},
+		{input: "1234", expect: "1234"},
+	}
+
+	for _, s := range scenarios {
+		actual := rightPadToThreeDigits(s.input)
 		expect := s.expect
 		if actual != expect {
 			t.Errorf("Expected: %v, Actual: %v", expect, actual)

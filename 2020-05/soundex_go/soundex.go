@@ -7,6 +7,7 @@ func Index(name string) string {
 	encoding := name[1:]
 	encoding = encodeLabialConsonants(encoding)
 	encoding = removeVowelLikeLetters(encoding)
+	encoding = rightPadToThreeDigits(encoding)
 	return firstLetter + encoding
 }
 
@@ -72,5 +73,12 @@ func removeVowelLikeLetters(name string) string {
 		name = strings.ReplaceAll(name, letter, "")
 	}
 
+	return name
+}
+
+func rightPadToThreeDigits(name string) string {
+	for len(name) < 3 {
+		name = name + "0"
+	}
 	return name
 }
