@@ -3,11 +3,15 @@ package soundex
 import "strings"
 
 func Index(name string) string {
+	name = strings.ToUpper(name)
+
 	firstLetter := getTheFirstLetter(name)
 	encoding := name[1:]
 	encoding = encodeLabialConsonants(encoding)
+	encoding = reduceLabialConsonantsSeparatedByHToSingleDigit(encoding)
 	encoding = removeVowelLikeLetters(encoding)
 	encoding = rightPadToThreeDigits(encoding)
+	encoding = trimToThreeDigits(encoding)
 	return firstLetter + encoding
 }
 
@@ -17,25 +21,6 @@ func getTheFirstLetter(name string) string {
 
 func encodeLabialConsonants(name string) string {
 	mapping := map[string]string{
-		"b": "1",
-		"f": "1",
-		"p": "1",
-		"v": "1",
-		"c": "2",
-		"g": "2",
-		"j": "2",
-		"k": "2",
-		"q": "2",
-		"s": "2",
-		"x": "2",
-		"z": "2",
-		"d": "3",
-		"t": "3",
-		"l": "4",
-		"m": "5",
-		"n": "5",
-		"r": "6",
-
 		"B": "1",
 		"F": "1",
 		"P": "1",
@@ -65,7 +50,6 @@ func encodeLabialConsonants(name string) string {
 
 func removeVowelLikeLetters(name string) string {
 	vowelLikeLetters := [16]string{
-		"a", "e", "i", "o", "u", "y", "h", "w",
 		"A", "E", "I", "O", "U", "Y", "H", "W",
 	}
 
@@ -80,5 +64,40 @@ func rightPadToThreeDigits(name string) string {
 	for len(name) < 3 {
 		name = name + "0"
 	}
+	return name
+}
+
+func trimToThreeDigits(name string) string {
+	if len(name) > 3 {
+		return name[0:3]
+	}
+
+	return name
+}
+
+func reduceLabialConsonantsSeparatedByHToSingleDigit(name string) string {
+	var previous rune
+	replacements := []string{}
+
+	for _, current := range name {
+		if current == 'H' {
+			continue
+		}
+
+		if previous == current {
+			replacements = append(replacements, string(current))
+		}
+
+		previous = current
+	}
+
+	for _, digit := range replacements {
+		name = strings.ReplaceAll(name, digit+"H"+digit, digit)
+	}
+
+	if len(replacements) > 0 {
+		name = reduceLabialConsonantsSeparatedByHToSingleDigit(name)
+	}
+
 	return name
 }
