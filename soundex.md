@@ -34,3 +34,6 @@ Using this American Soundex algorithm:
   - `Honeyman` yields `H555`
 
 > Sourced from [Wikipedia](https://en.wikipedia.org/wiki/Soundex) on May 26, 2020 and modified
+
+### Additional Constraints
+- Design a fluid API, or use method chaining
