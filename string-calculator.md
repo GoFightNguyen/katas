@@ -11,7 +11,8 @@ Guidelines:
 
 > Sourced from [Roy Osherove](https://osherove.com/tdd-kata-1) on June 6, 2020 and modified
 
-## 1. Create a simple string calculator
+## Steps
+### 1. Create a simple string calculator
 Include an `Add` method.
 
 The input is a `string` called `numbers`.
@@ -24,3 +25,5 @@ Examples:
 - "" => 0
 - "1" => 1
 - "1,2" => 3
+
+### 2. `Add` handles any amount of numbers
