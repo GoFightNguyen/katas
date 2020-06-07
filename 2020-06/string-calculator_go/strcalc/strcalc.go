@@ -7,6 +7,8 @@ import (
 )
 
 // Add returns the summation of the numbers provided.
+// Numbers greater than 1000 are ignored.
+// Negatives will cause an error.
 func Add(numbers string) (sum int, err error) {
 	if strings.HasPrefix(numbers, "//") {
 		split := strings.Split(numbers, "\n")
@@ -23,7 +25,7 @@ func Add(numbers string) (sum int, err error) {
 		return
 	}
 
-	sum = sumAll(splitNumbers)
+	sum = sumNumbersLessThan1001(splitNumbers)
 
 	return
 }
@@ -50,10 +52,14 @@ func getNegatives(numbers []string) []string {
 	return negatives
 }
 
-func sumAll(numbers []string) int {
+func sumNumbersLessThan1001(numbers []string) int {
 	sum := 0
 	for _, s := range numbers {
 		n, _ := strconv.Atoi(s)
+		if n > 1000 {
+			continue
+		}
+
 		sum += n
 	}
 

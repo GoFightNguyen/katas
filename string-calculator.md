@@ -49,3 +49,5 @@ In other words, if a delimiter is not specified then commas and new lines are th
 ### 5. No negatives
 Calling `Add` with a negative number errors with `negatives not allowed` and the negative that was passed.
 If there are multiple negatives then include all of them in the error.
+
+### 6. Ignore numbers bigger than 1000

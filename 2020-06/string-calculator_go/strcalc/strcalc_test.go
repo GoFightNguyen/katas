@@ -78,3 +78,23 @@ func TestAddErrorsForNegatives(t *testing.T) {
 		}
 	}
 }
+
+func TestAddIgnoresNumbersGreaterThan1000(t *testing.T) {
+	scenarios := []struct {
+		input  string
+		expect int
+	}{
+		{input: "1,1000", expect: 1001},
+		{input: "1000,1", expect: 1001},
+		{input: "1,1001", expect: 1},
+		{input: "1001,1", expect: 1},
+		{input: "1,1000,2,1001", expect: 1003},
+	}
+
+	for _, s := range scenarios {
+		result, _ := strcalc.Add(s.input)
+		if s.expect != result {
+			t.Errorf("Input: %v, Expected: %d, Actual: %d", s.input, s.expect, result)
+		}
+	}
+}
