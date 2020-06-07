@@ -7,9 +7,7 @@ import (
 )
 
 // Add returns the summation of the numbers provided.
-func Add(numbers string) (int, error) {
-	result := 0
-
+func Add(numbers string) (sum int, err error) {
 	if strings.HasPrefix(numbers, "//") {
 		split := strings.Split(numbers, "\n")
 		delimiter := split[0][2:]
@@ -20,17 +18,17 @@ func Add(numbers string) (int, error) {
 
 	splitNumbers := strings.Split(numbers, ",")
 
-	negErr := validateNoNegatives(splitNumbers)
-	if negErr != nil {
-		return 0, negErr
+	err = validateNoNegatives(splitNumbers)
+	if err != nil {
+		return
 	}
 
-	for _, s := range strings.Split(numbers, ",") {
+	for _, s := range splitNumbers {
 		n, _ := strconv.Atoi(s)
-		result += n
+		sum += n
 	}
 
-	return result, nil
+	return
 }
 
 func validateNoNegatives(numbers []string) error {
