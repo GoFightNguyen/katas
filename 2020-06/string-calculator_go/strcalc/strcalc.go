@@ -23,10 +23,7 @@ func Add(numbers string) (sum int, err error) {
 		return
 	}
 
-	for _, s := range splitNumbers {
-		n, _ := strconv.Atoi(s)
-		sum += n
-	}
+	sum = sumAll(splitNumbers)
 
 	return
 }
@@ -51,4 +48,14 @@ func getNegatives(numbers []string) []string {
 	}
 
 	return negatives
+}
+
+func sumAll(numbers []string) int {
+	sum := 0
+	for _, s := range numbers {
+		n, _ := strconv.Atoi(s)
+		sum += n
+	}
+
+	return sum
 }
