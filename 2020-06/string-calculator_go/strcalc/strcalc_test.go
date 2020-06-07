@@ -99,3 +99,21 @@ func TestAddIgnoresNumbersGreaterThan1000(t *testing.T) {
 		}
 	}
 }
+
+func TestAddSupportsSpecifiedDelimiterMultiCharacter(t *testing.T) {
+	scenarios := []struct {
+		input  string
+		expect int
+	}{
+		{input: "//[***]\n1", expect: 1},
+		{input: "//[***]\n1***2***3", expect: 6},
+		{input: "//[??]\n1??2", expect: 3},
+	}
+
+	for _, s := range scenarios {
+		result, _ := strcalc.Add(s.input)
+		if s.expect != result {
+			t.Errorf("Input: %v, Expected: %d, Actual: %d", s.input, s.expect, result)
+		}
+	}
+}

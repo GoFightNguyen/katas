@@ -51,3 +51,9 @@ Calling `Add` with a negative number errors with `negatives not allowed` and the
 If there are multiple negatives then include all of them in the error.
 
 ### 6. Ignore numbers bigger than 1000
+
+### 7. Allow delimiters of any length
+Delimiters can be of any length with the following format: `//[delimiter]\n`.
+
+Example:
+- `"//[***]\n1***2***3"` => `6`

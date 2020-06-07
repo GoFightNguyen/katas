@@ -10,14 +10,9 @@ import (
 // Numbers greater than 1000 are ignored.
 // Negatives will cause an error.
 func Add(numbers string) (sum int, err error) {
-	if strings.HasPrefix(numbers, "//") {
-		split := strings.Split(numbers, "\n")
-		delimiter := split[0][2:]
-		numbers = strings.ReplaceAll(split[1], delimiter, ",")
-	} else {
-		numbers = strings.ReplaceAll(numbers, "\n", ",")
-	}
-
+	delimiterLine, numbers := separateDelimiterLineFromNumbers(numbers)
+	delimiter := parseDelimiter(delimiterLine)
+	numbers = strings.ReplaceAll(numbers, delimiter, ",")
 	splitNumbers := strings.Split(numbers, ",")
 
 	err = validateNoNegatives(splitNumbers)
@@ -64,4 +59,31 @@ func sumNumbersLessThan1001(numbers []string) int {
 	}
 
 	return sum
+}
+
+func separateDelimiterLineFromNumbers(numbers string) (delimiterLine string, numbersLine string) {
+	if strings.HasPrefix(numbers, "//") {
+		split := strings.Split(numbers, "\n")
+		delimiterLine = split[0]
+		numbersLine = split[1]
+	} else {
+		numbersLine = numbers
+	}
+
+	return
+}
+
+func parseDelimiter(delimiterLine string) (delimiter string) {
+	if delimiterLine != "" {
+		if strings.Contains(delimiterLine, "[") {
+			endIndex := strings.Index(delimiterLine, "]")
+			delimiter = delimiterLine[3:endIndex]
+		} else {
+			delimiter = delimiterLine[2:]
+		}
+	} else {
+		delimiter = "\n"
+	}
+
+	return
 }
