@@ -27,3 +27,10 @@ Examples:
 - "1,2" => 3
 
 ### 2. `Add` handles any amount of numbers
+
+### 3. Allow the `Add` method to also handle new line delimiters
+Example: "1\n2,3" => 6
+
+The following is invalid.
+You do not need to prove it - just clarifying.
+"1,\n2"
