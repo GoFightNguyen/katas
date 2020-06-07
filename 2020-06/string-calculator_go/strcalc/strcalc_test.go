@@ -22,52 +22,39 @@ func TestAddReturnsItselfWhenSingleValue(t *testing.T) {
 	}
 }
 
-func TestAddReturnsSumOfCommaDelimitedNumbers(t *testing.T) {
+func TestAddSupportsDefaultDelimitersOfCommaAndNewLine(t *testing.T) {
 	scenarios := []struct {
 		input  string
 		expect int
 	}{
 		{input: "1,2", expect: 3},
 		{input: "1,2,4,6", expect: 13},
+		{input: "1\n2", expect: 3},
+		{input: "1\n2\n4\n6", expect: 13},
+		{input: "1\n2,3", expect: 6},
 	}
 
 	for _, s := range scenarios {
 		result := strcalc.Add(s.input)
 		if s.expect != result {
-			t.Errorf("Scenario: %v, Expected: %d, Actual: %d", s.input, s.expect, result)
+			t.Errorf("Input: %v, Expected: %d, Actual: %d", s.input, s.expect, result)
 		}
 	}
 }
 
-func TestAddHandlesNewLineDelimiters(t *testing.T) {
+func TestAddSupportsSpecifiedDelimiter(t *testing.T) {
 	scenarios := []struct {
 		input  string
 		expect int
 	}{
-		{input: "1\n2", expect: 3},
-		{input: "1\n2\n4\n6", expect: 13},
+		{input: "//;\n1", expect: 1},
+		{input: "//;\n1;2", expect: 3},
 	}
 
 	for _, s := range scenarios {
 		result := strcalc.Add(s.input)
 		if s.expect != result {
-			t.Errorf("Scenario: %v, Expected: %d, Actual: %d", s.input, s.expect, result)
+			t.Errorf("Input: %v, Expected: %d, Actual: %d", s.input, s.expect, result)
 		}
-	}
-}
-
-func TestAddHandlesBothNewLineAndCommaDelimiters(t *testing.T) {
-	result := strcalc.Add("1\n2,3")
-	expect := 6
-	if expect != result {
-		t.Errorf("Expected: %d, Actual: %d", expect, result)
-	}
-}
-
-func TestAddHandlesSpecifiedDelimiter(t *testing.T) {
-	result := strcalc.Add("//;\n1;2")
-	expect := 3
-	if expect != result {
-		t.Errorf("Expected: %d, Actual: %d", expect, result)
 	}
 }
