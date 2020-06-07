@@ -89,6 +89,7 @@ func TestAddIgnoresNumbersGreaterThan1000(t *testing.T) {
 		{input: "1,1001", expect: 1},
 		{input: "1001,1", expect: 1},
 		{input: "1,1000,2,1001", expect: 1003},
+		{input: "1001", expect: 0},
 	}
 
 	for _, s := range scenarios {
