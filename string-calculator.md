@@ -45,3 +45,7 @@ Example:
 
 All existing scenarios are still supported.
 In other words, if a delimiter is not specified then commas and new lines are the defaults.
+
+### 5. No negatives
+Calling `Add` with a negative number errors with `negatives not allowed` and the negative that was passed.
+If there are multiple negatives then include all of them in the error.
