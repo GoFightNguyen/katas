@@ -9,7 +9,13 @@ import (
 func Add(numbers string) int {
 	result := 0
 
-	numbers = strings.ReplaceAll(numbers, "\n", ",")
+	if strings.HasPrefix(numbers, "//") {
+		split := strings.Split(numbers, "\n")
+		delimiter := split[0][2:]
+		numbers = strings.ReplaceAll(split[1], delimiter, ",")
+	} else {
+		numbers = strings.ReplaceAll(numbers, "\n", ",")
+	}
 
 	for _, s := range strings.Split(numbers, ",") {
 		n, _ := strconv.Atoi(s)

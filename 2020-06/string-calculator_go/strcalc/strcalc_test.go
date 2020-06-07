@@ -63,3 +63,11 @@ func TestAddHandlesBothNewLineAndCommaDelimiters(t *testing.T) {
 		t.Errorf("Expected: %d, Actual: %d", expect, result)
 	}
 }
+
+func TestAddHandlesSpecifiedDelimiter(t *testing.T) {
+	result := strcalc.Add("//;\n1;2")
+	expect := 3
+	if expect != result {
+		t.Errorf("Expected: %d, Actual: %d", expect, result)
+	}
+}

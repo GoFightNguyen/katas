@@ -22,15 +22,26 @@ The output is an `int`.
 It is the sum of the input.
 
 Examples:
-- "" => 0
-- "1" => 1
-- "1,2" => 3
+- `""` => `0`
+- `"1"` => `1`
+- `"1,2"` => `3`
 
 ### 2. `Add` handles any amount of numbers
 
-### 3. Allow the `Add` method to also handle new line delimiters
-Example: "1\n2,3" => 6
+### 3. Support new line delimiters too
+Examples:
+- `"1\n2\n3"` => `6`
+- `"1\n2,3"` => `6`
 
 The following is invalid.
 You do not need to prove it - just clarifying.
-"1,\n2"
+`"1,\n2"`
+
+### 4. Support different delimiters
+To change a delimiter, the beginning of the string will contain a separate line like this `//[delimiter]\n`.
+
+Example:
+- `"//;\n1;2"` => `3`
+
+All existing scenarios are still supported.
+In other words, if a delimiter is not specified then commas and new lines are the defaults.
