@@ -128,6 +128,13 @@ func TestAddSupportsMultipleSpecifiedDelimiters(t *testing.T) {
 		{input: "//[*][%]\n1%2", expect: 3},
 		{input: "//[*][%]\n1*2%3", expect: 6},
 		{input: "//[*][%]\n1%2*3", expect: 6},
+
+		{input: "//[**][%%]\n1", expect: 1},
+		{input: "//[**][%%]\n1**2", expect: 3},
+		{input: "//[**][%%]\n1%%2", expect: 3},
+		{input: "//[**][%%]\n1**2%%3", expect: 6},
+		{input: "//[**][%%]\n1%%2**3", expect: 6},
+		{input: "//[*][%%]\n1%%2*3", expect: 6},
 	}
 
 	for _, s := range scenarios {

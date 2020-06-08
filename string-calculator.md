@@ -63,3 +63,7 @@ Allow multiple delimiters like this: `//[delim1][delim2]\n`.
 
 Example:
 - `"//[*][%]\n1*2%3"` => `6`
+
+### 9. Allow multiple custom delimiters of variable length
+Example:
+- `"//[**][%%]\n1*2%3"` => `6`
