@@ -57,3 +57,9 @@ Delimiters can be of any length with the following format: `//[delimiter]\n`.
 
 Example:
 - `"//[***]\n1***2***3"` => `6`
+
+### 8. Allow multiple custom delimiters
+Allow multiple delimiters like this: `//[delim1][delim2]\n`.
+
+Example:
+- `"//[*][%]\n1*2%3"` => `6`

@@ -11,8 +11,12 @@ import (
 // Negatives will cause an error.
 func Add(numbers string) (sum int, err error) {
 	delimiterLine, numbers := separateDelimiterLineFromNumbers(numbers)
-	delimiter := parseDelimiter(delimiterLine)
-	numbers = strings.ReplaceAll(numbers, delimiter, ",")
+	delimiters := parseDelimiters(delimiterLine)
+
+	for _, d := range delimiters {
+		numbers = strings.ReplaceAll(numbers, d, ",")
+	}
+
 	splitNumbers := strings.Split(numbers, ",")
 
 	err = validateNoNegatives(splitNumbers)
@@ -73,16 +77,21 @@ func separateDelimiterLineFromNumbers(numbers string) (delimiterLine string, num
 	return
 }
 
-func parseDelimiter(delimiterLine string) (delimiter string) {
+func parseDelimiters(delimiterLine string) (delimiters []string) {
+	delimiters = append(delimiters, "\n") // a default
+
 	if delimiterLine != "" {
 		if strings.Contains(delimiterLine, "[") {
-			endIndex := strings.Index(delimiterLine, "]")
-			delimiter = delimiterLine[3:endIndex]
+			for strings.Contains(delimiterLine, "[") {
+				endIndex := strings.Index(delimiterLine, "]")
+				delimiter := delimiterLine[3:endIndex]
+				delimiters = append(delimiters, delimiter)
+
+				delimiterLine = strings.ReplaceAll(delimiterLine, "["+delimiter+"]", "")
+			}
 		} else {
-			delimiter = delimiterLine[2:]
+			delimiters = append(delimiters, delimiterLine[2:])
 		}
-	} else {
-		delimiter = "\n"
 	}
 
 	return
